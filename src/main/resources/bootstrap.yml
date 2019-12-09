@@ -1,0 +1,7 @@
+server:
+  #端口号
+  port: 8999
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: '.html'

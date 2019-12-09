@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<script src="/jquery/jquery-3.4.1.min.js"></script>
+<body>
+    <form>
+        <input type="text" value="url" disabled/> : <input type="text" name="url" required/>
+        <br/>
+        <input type="text" value="username" disabled/> : <input type="text" name="username" required/>
+        <br/>
+        <input type="text" value="pwd" disabled/> : <input type="text" name="pwd" required/>
+        <br/>
+        <input type="text" value="driver" disabled/> :
+        <select name="driver">
+            <option value="com.mysql.jdbc.Driver">
+                org.postgresql.Driver
+            </option>
+            <option value="com.mysql.jdbc.Driver">
+                com.mysql.jdbc.Driver
+            </option>
+        </select>
+
+        <br/>
+        <input type="text" value="tableName" disabled/> : <input type="text" name="tableName" required/>
+        <br/>
+        <button onclick="test()" type="button">测试</button>
+    </form>
+    <a href="/index">返回</a>
+</body>
+<script>
+    function test() {
+        var d = {};
+        var t = $('form').serializeArray();
+        $.each(t, function () {
+            d[this.name] = this.value;
+        });
+        $.ajax({
+            type: "post",
+            url: "/getTableColumns",
+            contentType: "application/json;charset=utf-8",
+            data:JSON.stringify(d),
+            dataType: "json",
+            success:function (data) {
+                alert("提交成功"+data.msg);
+            },
+            error:function (data) {
+                alert("提交失败"+data.msg);
+            }
+        });
+    }
+</script>
+</html>
